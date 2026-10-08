@@ -24,7 +24,7 @@ function RoomSketch({ capacity }) {
   );
 }
 
-function BookingForm({ room, date, onBooked }) {
+export function BookingForm({ room, date, onBooked }) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -63,28 +63,28 @@ function BookingForm({ room, date, onBooked }) {
       </div>
       <h2 className="mt-6 text-3xl tracking-tight">Book {room.name}.</h2>
       <p className="mt-2 text-sm text-white/70">{dateLabel(date)} · Up to {room.capacity} people</p>
-      <form onSubmit={submit} className="mt-8 space-y-5">
+      <form onSubmit={submit} className="mt-8 space-y-5" data-testid="booking-form-form">
         <fieldset disabled={saving} className="space-y-5 disabled:opacity-60">
           <label className="field-label">
             Meeting title
-            <input name="title" placeholder="e.g. Product brainstorm" required maxLength={100} />
+            <input name="title" data-testid="booking-form-title-input" placeholder="e.g. Product brainstorm" required maxLength={100} />
           </label>
           <label className="field-label">
             Organizer
-            <input name="organizer" placeholder="e.g. Alex Morgan" required maxLength={100} autoComplete="off" />
+            <input name="organizer" data-testid="booking-form-organizer-input" placeholder="e.g. Alex Morgan" required maxLength={100} autoComplete="off" />
           </label>
           <div className="grid grid-cols-2 gap-3">
             <label className="field-label">
               Start time
-              <input name="startTime" type="time" defaultValue="09:00" step="60" required />
+              <input name="startTime" data-testid="booking-form-start-time-input" type="time" defaultValue="09:00" step="60" required />
             </label>
             <label className="field-label">
               End time
-              <input name="endTime" type="time" defaultValue="10:00" step="60" required />
+              <input name="endTime" data-testid="booking-form-end-time-input" type="time" defaultValue="10:00" step="60" required />
             </label>
           </div>
-          {error && <p role="alert" className="rounded-xl bg-white p-3 text-sm text-red-800">{error}</p>}
-          <button className="book-button" type="submit">
+          {error && <p role="alert" data-testid="booking-form-error-alert" className="rounded-xl bg-white p-3 text-sm text-red-800">{error}</p>}
+          <button className="book-button" type="submit" data-testid="booking-form-submit-button">
             {saving ? 'Booking…' : 'Confirm booking'} <span aria-hidden="true">↗</span>
           </button>
         </fieldset>
